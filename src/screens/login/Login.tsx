@@ -2,13 +2,29 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import { useLazyQuery } from "@apollo/client";
+import { LOGIN_USER } from "../../hooks/user/login";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const onLogin = () => {
-    console.log(username, password);
+  const [login, { loading, error, data }] = useLazyQuery(LOGIN_USER, {
+    variables: {
+      username: username,
+      password: password
+    }
+  });
+
+  const onLogin = async () => {
+    await login();
+    if (data) {
+      console.log("test");
+      console.log(data);
+    } else {
+      console.log("test1");
+      // console.error(error);
+    }
   };
 
   return (
