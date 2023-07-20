@@ -5,6 +5,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./src/screens/login/Login";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { client } from "./src/lib/api-apollo-graphql/client";
+import MenuScreen from "./src/screens/menu/menu";
+
+export type RootStackParamList = {
+  Login: undefined;
+  Menu: undefined;
+};
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -12,8 +18,13 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false
+          }}
+        >
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Menu" component={MenuScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ApolloProvider>
