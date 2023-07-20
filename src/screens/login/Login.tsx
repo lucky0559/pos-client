@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../hooks/user/login";
 
 const Login = () => {
@@ -10,21 +10,21 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const [login, { loading, error, data }] = useLazyQuery(LOGIN_USER, {
-    variables: {
-      username: username,
-      password: password
+    onCompleted: data => {
+      console.log(data.login.username);
+    },
+    onError: error => {
+      console.log(error);
     }
   });
 
   const onLogin = async () => {
-    await login();
-    if (data) {
-      console.log("test");
-      console.log(data);
-    } else {
-      console.log("test1");
-      // console.error(error);
-    }
+    await login({
+      variables: {
+        username: username,
+        password: password
+      }
+    });
   };
 
   return (
@@ -33,18 +33,19 @@ const Login = () => {
         <Input
           placeholder="Username"
           value={username}
-          onChangeText={e => setUsername(e)}
+          onChangeText={setUsername}
         />
         <Input
           placeholder="Password"
           value={password}
-          onChangeText={e => setPassword(e)}
+          onChangeText={setPassword}
         />
       </LoginContainer>
       <Button
         text="Login"
         onPress={onLogin}
         disabled={!!!(username && password)}
+        isSubmitting={loading}
       />
     </Container>
   );

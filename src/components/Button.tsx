@@ -6,12 +6,13 @@ type ButtonProps = {
   text: string;
   onPress: () => void;
   disabled?: boolean;
+  isSubmitting: boolean;
 };
 
-const Button = ({ text, disabled, onPress }: ButtonProps) => {
+const Button = ({ text, disabled, isSubmitting, onPress }: ButtonProps) => {
   return (
     <ButtonStyled activeOpacity={0.8} onPress={onPress} disabled={disabled}>
-      <TextStyled>{text}</TextStyled>
+      <TextStyled>{isSubmitting ? "submitting..." : text}</TextStyled>
     </ButtonStyled>
   );
 };
