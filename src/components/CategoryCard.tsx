@@ -17,7 +17,7 @@ const CategoryCard = () => {
 
 const Container = styled.TouchableOpacity`
   width: 180px;
-  height: 130px;
+  height: 140px;
   background-color: #eddbc7;
   padding: 10px;
   border-radius: 15px;

@@ -4,12 +4,13 @@ import { Layout } from "@ui-kitten/components";
 import { styled } from "styled-components/native";
 import Categories from "./Categories";
 import ItemsList from "./ItemsList";
+import DividerLine from "./DividerLine";
 
 const Contents = () => {
   return (
     <Container>
       <Categories />
-      <DivLine />
+      <DividerLine />
       <ItemsList />
     </Container>
   );
@@ -20,12 +21,6 @@ const Container = styled(Layout)`
   flex: 2;
   flex-direction: column;
   background-color: transparent;
-`;
-
-const DivLine = styled(Layout)`
-  width: 100%;
-  height: 2px;
-  border: 1px solid #eddbc7;
 `;
 
 export default Contents;
