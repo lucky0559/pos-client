@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
-import Input from "../../components/Input";
+import InputField from "../../components/Input";
 import Button from "../../components/Button";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../hooks/user/login";
@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../App";
 import TextError from "../../components/TextError";
+import { Layout } from "@ui-kitten/components";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -34,12 +35,12 @@ const Login = () => {
   return (
     <Container>
       <LoginContainer>
-        <Input
+        <InputField
           placeholder="Username"
           value={username}
           onChangeText={setUsername}
         />
-        <Input
+        <InputField
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
@@ -56,11 +57,12 @@ const Login = () => {
   );
 };
 
-const Container = styled.View`
+const Container = styled(Layout)`
   align-items: center;
   justify-content: center;
   display: flex;
   height: 100%;
+  background-color: #f9f5e7;
 `;
 
 const LoginContainer = styled.View`

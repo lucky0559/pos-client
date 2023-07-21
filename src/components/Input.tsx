@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { styled } from "styled-components/native";
+import { Input } from "@ui-kitten/components";
 
 type InputProps = {
   placeholder: string;
@@ -7,7 +8,7 @@ type InputProps = {
   onChangeText: (val: string) => void;
 };
 
-const Input = ({ placeholder, value, onChangeText }: InputProps) => {
+const InputField = ({ placeholder, value, onChangeText }: InputProps) => {
   const [borderColor, setBorderColor] = useState("");
 
   return (
@@ -22,12 +23,11 @@ const Input = ({ placeholder, value, onChangeText }: InputProps) => {
   );
 };
 
-const InputStyled = styled.TextInput<{ borderColor: string }>`
-  border: ${p => `2px solid ${p.borderColor}`};
+const InputStyled = styled(Input)<{ borderColor: string }>`
   margin: 5px;
   border-radius: 5px;
   height: 40px;
   padding-left: 10px;
 `;
 
-export default Input;
+export default InputField;

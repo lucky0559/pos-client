@@ -12,7 +12,7 @@ const SideMenuBar = () => {
 const Container = styled.View`
   display: flex;
   height: 100%;
-  flex: 1;
+  flex: 0.5;
   padding: 30px;
 `;
 
