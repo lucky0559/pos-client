@@ -9,6 +9,7 @@ const Contents = () => {
   return (
     <Container>
       <Categories />
+      <DivLine />
       <ItemsList />
     </Container>
   );
@@ -19,6 +20,12 @@ const Container = styled(Layout)`
   flex: 2;
   flex-direction: column;
   background-color: transparent;
+`;
+
+const DivLine = styled(Layout)`
+  width: 100%;
+  height: 2px;
+  border: 1px solid #eddbc7;
 `;
 
 export default Contents;

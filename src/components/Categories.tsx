@@ -8,6 +8,9 @@ const Categories = () => {
   return (
     <Container>
       <CategoryCard />
+      <CategoryCard />
+      <CategoryCard />
+      <CategoryCard />
     </Container>
   );
 };
@@ -16,6 +19,9 @@ const Container = styled(Layout)`
   flex: 1;
   background-color: transparent;
   padding: 30px;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
 export default Categories;

@@ -5,21 +5,23 @@ import { styled } from "styled-components/native";
 
 const CategoryCard = () => {
   return (
-    <Container>
+    <Container activeOpacity={0.8}>
       <IconLayout></IconLayout>
       <DetailLayout>
-        <Text category="label">Breakfast</Text>
-        <Text category="c1">13 items</Text>
+        <CategoryItem category="label">Breakfast</CategoryItem>
+        <CategoryCount category="c1">13 items</CategoryCount>
       </DetailLayout>
     </Container>
   );
 };
 
-const Container = styled(Layout)`
+const Container = styled.TouchableOpacity`
   width: 180px;
   height: 130px;
   background-color: #eddbc7;
   padding: 10px;
+  border-radius: 15px;
+  margin-vertical: 10px;
 `;
 
 const IconLayout = styled(Layout)`
@@ -32,6 +34,14 @@ const DetailLayout = styled(Layout)`
   display: flex;
   flex: 1;
   background-color: transparent;
+`;
+
+const CategoryItem = styled(Text)`
+  font-size: 18px;
+`;
+
+const CategoryCount = styled(Text)`
+  font-size: 14px;
 `;
 
 export default CategoryCard;
