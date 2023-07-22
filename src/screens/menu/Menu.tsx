@@ -4,14 +4,15 @@ import SideMenuBar from "../../components/SideMenuBar";
 import { styled } from "styled-components/native";
 import { Layout } from "@ui-kitten/components";
 import Contents from "../../components/Contents";
-import Cart from "../../components/Cart";
+import Cart from "../../components/cart/Cart";
+import { cart } from "../../mockData/cart";
 
 const MenuScreen = () => {
   return (
     <Container>
       <SideMenuBar />
       <Contents />
-      <Cart />
+      <Cart cartItems={cart} />
     </Container>
   );
 };

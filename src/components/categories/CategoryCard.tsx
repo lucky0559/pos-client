@@ -1,17 +1,26 @@
-import { View } from "react-native";
 import React from "react";
 import { Layout, Text } from "@ui-kitten/components";
 import { styled } from "styled-components/native";
+import DropShadow from "../DropShadow";
+import { Category } from "../../types/category";
 
-const CategoryCard = () => {
+type CategoryCardProps = {
+  category: Category;
+};
+
+const CategoryCard = ({ category }: CategoryCardProps) => {
   return (
-    <Container activeOpacity={0.8}>
-      <IconLayout></IconLayout>
-      <DetailLayout>
-        <CategoryItem category="label">Breakfast</CategoryItem>
-        <CategoryCount category="c1">13 items</CategoryCount>
-      </DetailLayout>
-    </Container>
+    <DropShadow width={180} borderRadius={15} height={140}>
+      <Container activeOpacity={0.8}>
+        <IconLayout></IconLayout>
+        <DetailLayout>
+          <CategoryItem category="label">{category.name}</CategoryItem>
+          <CategoryCount category="c1">
+            {category.items.length} items
+          </CategoryCount>
+        </DetailLayout>
+      </Container>
+    </DropShadow>
   );
 };
 
@@ -21,7 +30,6 @@ const Container = styled.TouchableOpacity`
   background-color: #eddbc7;
   padding: 10px;
   border-radius: 15px;
-  margin-vertical: 10px;
 `;
 
 const IconLayout = styled(Layout)`

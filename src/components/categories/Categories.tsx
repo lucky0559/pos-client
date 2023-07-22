@@ -3,14 +3,14 @@ import React from "react";
 import { Layout } from "@ui-kitten/components";
 import { styled } from "styled-components/native";
 import CategoryCard from "./CategoryCard";
+import { categories } from "../../mockData/categories";
 
 const Categories = () => {
   return (
     <Container>
-      <CategoryCard />
-      <CategoryCard />
-      <CategoryCard />
-      <CategoryCard />
+      {categories.map(category => {
+        return <CategoryCard key={category.id} category={category} />;
+      })}
     </Container>
   );
 };
