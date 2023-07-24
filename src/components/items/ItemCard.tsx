@@ -4,6 +4,7 @@ import { Layout, Text } from "@ui-kitten/components";
 import DropShadow from "../DropShadow";
 import Icon from "react-native-vector-icons/AntDesign";
 import { Item } from "../../types/item";
+import { pesoFormat } from "../../hooks/usePesoFormat";
 
 type ItemCardProps = {
   item: Item;
@@ -17,7 +18,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
         <Contents>
           <ItemDetails>
             <ItemName>{item.name}</ItemName>
-            <ItemPrice>&#8369;{item.price}</ItemPrice>
+            <ItemPrice>{pesoFormat.format(item.price)}</ItemPrice>
           </ItemDetails>
           <ItemQuantityContainer>
             <AmountCounterButton activeOpacity={0.7}>

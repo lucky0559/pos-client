@@ -4,6 +4,8 @@ import { Layout } from "@ui-kitten/components";
 import { styled } from "styled-components/native";
 import { CartItem } from "../../types/cart-item";
 import { SwipeListView } from "react-native-swipe-list-view";
+import { pesoFormat } from "../../hooks/usePesoFormat";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 type CartProps = {
   cartItems: CartItem[];
@@ -20,15 +22,15 @@ const Cart = ({ cartItems }: CartProps) => {
             <Text>
               {data.item.name} <Text>x{data.item.count}</Text>{" "}
             </Text>
-            <Text>&#8369;{data.item.price * data.item.count}</Text>
+            <Text>{pesoFormat.format(data.item.price * data.item.count)}</Text>
           </ItemLayout>
         )}
-        // renderHiddenItem={() => (
-        //   <>
-        //     <Text>Hello</Text>
-        //   </>
-        // )}
-        leftOpenValue={40}
+        renderHiddenItem={() => (
+          <TrashContainer activeOpacity={0.7}>
+            <Icon name="trash" size={18} />
+          </TrashContainer>
+        )}
+        leftOpenValue={50}
       />
     </Container>
   );
@@ -56,6 +58,17 @@ const ItemLayout = styled(Layout)`
   shadow-color: #030002;
   shadow-opacity: 0.25;
   shadow-radius: 5px;
+`;
+
+const TrashContainer = styled.TouchableOpacity`
+  padding: 15px;
+  height: 52px;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #f8ead8;
 `;
 
 export default Cart;
