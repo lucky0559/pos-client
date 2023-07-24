@@ -18,7 +18,7 @@ const MenuScreen = () => {
 };
 
 const Container = styled(Layout)`
-  background-color: #f9f5e7;
+  background-color: #eddbc7;
   display: flex;
   flex: 1;
   padding-top: ${StatusBar.currentHeight}px;

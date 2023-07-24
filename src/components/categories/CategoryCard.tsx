@@ -11,7 +11,7 @@ type CategoryCardProps = {
 const CategoryCard = ({ category }: CategoryCardProps) => {
   return (
     <DropShadow width={180} borderRadius={15} height={140}>
-      <Container activeOpacity={0.8}>
+      <Container activeOpacity={0.7}>
         <IconLayout></IconLayout>
         <DetailLayout>
           <CategoryItem category="label">{category.name}</CategoryItem>
@@ -27,7 +27,7 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
 const Container = styled.TouchableOpacity`
   width: 180px;
   height: 140px;
-  background-color: #eddbc7;
+  background-color: #f9f5e7;
   padding: 10px;
   border-radius: 15px;
 `;

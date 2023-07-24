@@ -5,7 +5,8 @@ import { styled } from "styled-components/native";
 import { CartItem } from "../../types/cart-item";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { pesoFormat } from "../../hooks/usePesoFormat";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/FontAwesome5";
+import TotalCard from "./TotalCard";
 
 type CartProps = {
   cartItems: CartItem[];
@@ -14,24 +15,30 @@ type CartProps = {
 const Cart = ({ cartItems }: CartProps) => {
   return (
     <Container>
-      <SwipeListView
-        data={cartItems}
-        renderItem={data => (
-          <ItemLayout>
-            <Text>{data.index + 1}</Text>
-            <Text>
-              {data.item.name} <Text>x{data.item.count}</Text>{" "}
-            </Text>
-            <Text>{pesoFormat.format(data.item.price * data.item.count)}</Text>
-          </ItemLayout>
-        )}
-        renderHiddenItem={() => (
-          <TrashContainer activeOpacity={0.7}>
-            <Icon name="trash" size={18} />
-          </TrashContainer>
-        )}
-        leftOpenValue={50}
-      />
+      <ItemsContainer>
+        <SwipeListView
+          data={cartItems}
+          renderItem={data => (
+            <ItemLayout>
+              <Text>{data.index + 1}</Text>
+              <Text>
+                {data.item.name} <Text>x{data.item.count}</Text>{" "}
+              </Text>
+              <Text>
+                {pesoFormat.format(data.item.price * data.item.count)}
+              </Text>
+            </ItemLayout>
+          )}
+          renderHiddenItem={() => (
+            <TrashContainer activeOpacity={0.7}>
+              <Icon name="trash" size={18} color={"#F31559"} />
+            </TrashContainer>
+          )}
+          leftOpenValue={50}
+          disableLeftSwipe
+        />
+      </ItemsContainer>
+      <TotalCard />
     </Container>
   );
 };
@@ -45,7 +52,7 @@ const Container = styled(Layout)`
 
 const ItemLayout = styled(Layout)`
   height: 50px;
-  background-color: #eddbc7;
+  background-color: #f9f5e7;
   border-radius: 5px;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -69,6 +76,10 @@ const TrashContainer = styled.TouchableOpacity`
   justify-content: center;
   align-items: flex-start;
   background-color: #f8ead8;
+`;
+
+const ItemsContainer = styled.View`
+  margin-bottom: 30px;
 `;
 
 export default Cart;

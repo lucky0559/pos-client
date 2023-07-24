@@ -38,7 +38,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
 const Container = styled(Layout)`
   width: 180px;
   height: 140px;
-  background-color: #eddbc7;
+  background-color: #f9f5e7;
   border-radius: 15px;
   display: flex;
   flex-direction: row;
