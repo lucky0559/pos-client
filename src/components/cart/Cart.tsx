@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Layout } from "@ui-kitten/components";
 import { styled } from "styled-components/native";
 import { CartItem } from "../../types/cart-item";
@@ -13,6 +13,12 @@ type CartProps = {
 };
 
 const Cart = ({ cartItems }: CartProps) => {
+  const [paymentMethod, setPaymentMethod] = useState(1);
+
+  const onSelectPaymentMethod = (value: number) => {
+    setPaymentMethod(value);
+  };
+
   return (
     <Container>
       <ItemsContainer>
@@ -20,7 +26,9 @@ const Cart = ({ cartItems }: CartProps) => {
           data={cartItems}
           renderItem={data => (
             <ItemLayout>
-              <Text>{data.index + 1}</Text>
+              <IndexCountView>
+                <IndexCountText>{data.index + 1}</IndexCountText>
+              </IndexCountView>
               <Text>
                 {data.item.name} <Text>x{data.item.count}</Text>{" "}
               </Text>
@@ -38,7 +46,10 @@ const Cart = ({ cartItems }: CartProps) => {
           disableLeftSwipe
         />
       </ItemsContainer>
-      <TotalCard />
+      <TotalCard
+        onSelectPaymentMethod={onSelectPaymentMethod}
+        paymentMethod={paymentMethod}
+      />
     </Container>
   );
 };
@@ -60,7 +71,7 @@ const ItemLayout = styled(Layout)`
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  padding: 15px;
+  padding: 15px 15px 15px 15px;
   elevation: 5;
   shadow-color: #030002;
   shadow-opacity: 0.25;
@@ -69,7 +80,7 @@ const ItemLayout = styled(Layout)`
 
 const TrashContainer = styled.TouchableOpacity`
   padding: 15px;
-  height: 52px;
+  height: 50px;
   border-radius: 5px;
   margin-top: 10px;
   display: flex;
@@ -80,6 +91,20 @@ const TrashContainer = styled.TouchableOpacity`
 
 const ItemsContainer = styled.View`
   margin-bottom: 30px;
+`;
+
+const IndexCountView = styled.View`
+  background-color: #a7727d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  border-radius: 10px;
+`;
+
+const IndexCountText = styled.Text`
+  color: white;
+  font-size: 13px;
 `;
 
 export default Cart;

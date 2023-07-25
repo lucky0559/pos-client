@@ -4,8 +4,17 @@ import { Layout, Text } from "@ui-kitten/components";
 import DashedDivider from "../DashedDivider";
 import { pesoFormat } from "../../hooks/usePesoFormat";
 import PaymentMethod from "./PaymentMethod";
+import { PAYMENT_METHOD } from "../../enum/enums";
 
-const TotalCard = () => {
+type TotalCardProps = {
+  paymentMethod: number;
+  onSelectPaymentMethod: (val: number) => void;
+};
+
+const TotalCard = ({
+  paymentMethod,
+  onSelectPaymentMethod
+}: TotalCardProps) => {
   return (
     <Container>
       <ViewSubtotal>
@@ -26,9 +35,23 @@ const TotalCard = () => {
       <PaymentMethodView>
         <TextStyled>Payment Method</TextStyled>
         <MethodPickerView>
-          <PaymentMethod label="Cash" />
-          <PaymentMethod label="Gcash" />
-          <PaymentMethod label="Paymaya" />
+          <PaymentMethod
+            label="Cash"
+            onSelectPaymentMethod={onSelectPaymentMethod}
+            isActive={paymentMethod === PAYMENT_METHOD.CASH}
+          />
+          <PaymentMethod
+            label="Gcash"
+            path={require("../../../assets/imgs/gcash.png")}
+            onSelectPaymentMethod={onSelectPaymentMethod}
+            isActive={paymentMethod === PAYMENT_METHOD.GCASH}
+          />
+          <PaymentMethod
+            label="Paymaya"
+            path={require("../../../assets/imgs/paymaya.png")}
+            onSelectPaymentMethod={onSelectPaymentMethod}
+            isActive={paymentMethod === PAYMENT_METHOD.PAYMAYA}
+          />
         </MethodPickerView>
       </PaymentMethodView>
       <PlaceOrderButton activeOpacity={0.8}>
@@ -88,7 +111,7 @@ const MethodPickerView = styled.View`
 const PlaceOrderButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
-  background-color: #807574;
+  background-color: #a7727d;
   margin-top: 30px;
   border-radius: 5px;
   padding: 8px;
