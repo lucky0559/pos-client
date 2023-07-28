@@ -7,7 +7,7 @@ import MenuScreen from "./src/screens/menu/Menu";
 import { ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 import { default as theme } from "./theme.json";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { categories } from "./src/mockData/categories";
 import { MenuContext } from "./src/context/menu.context";
 import { Item } from "./src/types/item";
@@ -34,12 +34,43 @@ export default function App() {
     return items[0]?.items;
   }, [selectedCategory]);
 
-  const onModifyItem = (action: string, id: number) => {
+  const onModifyItem = (action: string, item: Item) => {
+    const modifiedItems = cartItems;
+    const isExists = cartItems?.find(cartItem => cartItem.id === item.id);
+    const index = cartItems?.findIndex(cartItem => {
+      return cartItem.id === item.id;
+    });
     switch (action) {
       case "+":
-        return console.log("plus", id);
+        if (isExists) {
+          modifiedItems![index!].count = modifiedItems?.[index!].count! + 1;
+          if (modifiedItems) {
+            setCartItems([...modifiedItems]);
+          }
+        } else {
+          item.count = 1;
+          if (modifiedItems) {
+            setCartItems([...modifiedItems, item]);
+          } else {
+            setCartItems([item]);
+          }
+        }
+        return modifiedItems;
       case "-":
-        return console.log("minus", id);
+        if (isExists) {
+          if (modifiedItems![index!].count === 1) {
+            const filteredItems = modifiedItems?.filter(cartItem => {
+              return cartItem.id !== item.id;
+            });
+            setCartItems(filteredItems);
+          } else {
+            modifiedItems![index!].count = modifiedItems?.[index!].count! - 1;
+            if (modifiedItems) {
+              setCartItems([...modifiedItems]);
+            }
+          }
+        } else return;
+        return modifiedItems;
       default:
         break;
     }
@@ -48,6 +79,7 @@ export default function App() {
   const MenuContextValue = {
     selectedCategory,
     items,
+    cartItems,
     actions: {
       setCategory,
       onModifyItem

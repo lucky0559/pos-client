@@ -12,7 +12,7 @@ const MenuScreen = () => {
     <Container>
       <SideMenuBar />
       <Contents />
-      <Cart cartItems={cart} />
+      <Cart />
     </Container>
   );
 };

@@ -1,5 +1,5 @@
 import { Text } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Layout } from "@ui-kitten/components";
 import { styled } from "styled-components/native";
 import { CartItem } from "../../types/cart-item";
@@ -7,23 +7,24 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import { pesoFormat } from "../../hooks/usePesoFormat";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import TotalCard from "./TotalCard";
+import { MenuContext } from "../../context/menu.context";
 
-type CartProps = {
-  cartItems: CartItem[];
-};
+type CartProps = {};
 
-const Cart = ({ cartItems }: CartProps) => {
+const Cart = () => {
   const [paymentMethod, setPaymentMethod] = useState(1);
 
   const onSelectPaymentMethod = (value: number) => {
     setPaymentMethod(value);
   };
 
+  const context = useContext(MenuContext);
+
   return (
     <Container>
       <ItemsContainer>
         <SwipeListView
-          data={cartItems}
+          data={context?.cartItems}
           renderItem={data => (
             <ItemLayout>
               <IndexCountView>
@@ -33,7 +34,8 @@ const Cart = ({ cartItems }: CartProps) => {
                 {data.item.name} <Text>x{data.item.count}</Text>{" "}
               </Text>
               <Text>
-                {pesoFormat.format(data.item.price * data.item.count)}
+                {data.item.count &&
+                  pesoFormat.format(data.item.price * data.item.count)}
               </Text>
             </ItemLayout>
           )}

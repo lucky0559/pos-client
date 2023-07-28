@@ -14,6 +14,10 @@ type ItemCardProps = {
 const ItemCard = ({ item }: ItemCardProps) => {
   const context = useContext(MenuContext);
 
+  const cartItem = context?.cartItems?.find(
+    itemCart => itemCart.id === item.id
+  );
+
   return (
     <DropShadow width={180} borderRadius={15} height={140}>
       <Container>
@@ -26,14 +30,14 @@ const ItemCard = ({ item }: ItemCardProps) => {
           <ItemQuantityContainer>
             <AmountCounterButton
               activeOpacity={0.7}
-              onPress={() => context?.actions.onModifyItem!("-", item.id)}
+              onPress={() => context?.actions.onModifyItem!("-", item)}
             >
               <Icon name="minus" size={15} />
             </AmountCounterButton>
-            <ItemQuantity>0</ItemQuantity>
+            <ItemQuantity>{cartItem?.count || 0}</ItemQuantity>
             <AmountCounterButton
               activeOpacity={0.7}
-              onPress={() => context?.actions.onModifyItem!("+", item.id)}
+              onPress={() => context?.actions.onModifyItem!("+", item)}
             >
               <Icon name="plus" size={15} />
             </AmountCounterButton>
