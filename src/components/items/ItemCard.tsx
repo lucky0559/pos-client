@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { styled } from "styled-components/native";
 import { Layout, Text } from "@ui-kitten/components";
 import DropShadow from "../DropShadow";
 import Icon from "react-native-vector-icons/AntDesign";
 import { Item } from "../../types/item";
 import { pesoFormat } from "../../hooks/usePesoFormat";
+import { MenuContext } from "../../context/menu.context";
 
 type ItemCardProps = {
   item: Item;
 };
 
 const ItemCard = ({ item }: ItemCardProps) => {
+  const context = useContext(MenuContext);
+
   return (
     <DropShadow width={180} borderRadius={15} height={140}>
       <Container>
@@ -21,11 +24,17 @@ const ItemCard = ({ item }: ItemCardProps) => {
             <ItemPrice>{pesoFormat.format(item.price)}</ItemPrice>
           </ItemDetails>
           <ItemQuantityContainer>
-            <AmountCounterButton activeOpacity={0.7}>
+            <AmountCounterButton
+              activeOpacity={0.7}
+              onPress={() => context?.actions.onModifyItem!("-", item.id)}
+            >
               <Icon name="minus" size={15} />
             </AmountCounterButton>
             <ItemQuantity>0</ItemQuantity>
-            <AmountCounterButton activeOpacity={0.7}>
+            <AmountCounterButton
+              activeOpacity={0.7}
+              onPress={() => context?.actions.onModifyItem!("+", item.id)}
+            >
               <Icon name="plus" size={15} />
             </AmountCounterButton>
           </ItemQuantityContainer>

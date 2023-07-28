@@ -10,6 +10,7 @@ import { default as theme } from "./theme.json";
 import { useMemo, useState } from "react";
 import { categories } from "./src/mockData/categories";
 import { MenuContext } from "./src/context/menu.context";
+import { Item } from "./src/types/item";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -20,6 +21,7 @@ export default function App() {
   const Stack = createNativeStackNavigator();
 
   const [selectedCategory, setselectedCategory] = useState<number>();
+  const [cartItems, setCartItems] = useState<Item[]>();
 
   const setCategory = (val: number) => {
     setselectedCategory(val);
@@ -32,11 +34,23 @@ export default function App() {
     return items[0]?.items;
   }, [selectedCategory]);
 
+  const onModifyItem = (action: string, id: number) => {
+    switch (action) {
+      case "+":
+        return console.log("plus", id);
+      case "-":
+        return console.log("minus", id);
+      default:
+        break;
+    }
+  };
+
   const MenuContextValue = {
     selectedCategory,
     items,
     actions: {
-      setCategory
+      setCategory,
+      onModifyItem
     }
   };
 

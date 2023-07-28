@@ -6,6 +6,7 @@ type MenuContextType = {
   items?: Item[];
   actions: {
     setCategory?: (val: number) => void;
+    onModifyItem?: (action: string, id: number) => void;
   };
 };
 
