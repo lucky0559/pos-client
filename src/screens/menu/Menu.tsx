@@ -1,4 +1,4 @@
-import { View, Text, StatusBar } from "react-native";
+import { StatusBar } from "react-native";
 import React from "react";
 import SideMenuBar from "../../components/SideMenuBar";
 import { styled } from "styled-components/native";

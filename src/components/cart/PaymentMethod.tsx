@@ -3,7 +3,6 @@ import React from "react";
 import { styled } from "styled-components/native";
 import { Layout } from "@ui-kitten/components";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { PAYMENT_METHOD } from "../../enum/enums";
 
 type PaymentMethodProps = {
   label: string;

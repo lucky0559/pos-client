@@ -3,3 +3,10 @@ export enum PAYMENT_METHOD {
   GCASH,
   PAYMAYA
 }
+
+export enum CATEGORY {
+  BREAKFAST = 1,
+  DRINKS,
+  SOUP,
+  ALCOHOL
+}

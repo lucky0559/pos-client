@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import React, { useState } from "react";
 import { Layout } from "@ui-kitten/components";
 import { styled } from "styled-components/native";

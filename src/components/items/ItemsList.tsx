@@ -1,14 +1,14 @@
-import { View, Text } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { Layout } from "@ui-kitten/components";
 import { styled } from "styled-components/native";
 import ItemCard from "./ItemCard";
-import { categories } from "../../mockData/categories";
+import { MenuContext } from "../../context/menu.context";
 
 const ItemsList = () => {
+  const context = useContext(MenuContext);
   return (
-    <Container itemsLength={categories[0].items.length > 3}>
-      {categories[0].items.map(item => {
+    <Container itemsLength={context?.items?.length! > 3}>
+      {context?.items?.map(item => {
         return <ItemCard key={item.id} item={item} />;
       })}
     </Container>
