@@ -76,13 +76,21 @@ export default function App() {
     }
   };
 
+  const onDeleteCardItem = (id: number) => {
+    const filteredCartItems = cartItems?.filter(item => {
+      return item.id !== id;
+    });
+    setCartItems(filteredCartItems);
+  };
+
   const MenuContextValue = {
     selectedCategory,
     items,
     cartItems,
     actions: {
       setCategory,
-      onModifyItem
+      onModifyItem,
+      onDeleteCardItem
     }
   };
 
