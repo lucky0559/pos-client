@@ -9,7 +9,7 @@ const ItemsList = () => {
   return (
     <Container itemsLength={context?.items?.length! > 3}>
       {context?.items?.map(item => {
-        return <ItemCard key={item.id} item={item} />;
+        return <ItemCard key={item.itemId} item={item} />;
       })}
     </Container>
   );

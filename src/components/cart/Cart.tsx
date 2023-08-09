@@ -42,7 +42,9 @@ const Cart = () => {
           renderHiddenItem={data => (
             <TrashContainer
               activeOpacity={0.7}
-              onPress={() => context?.actions.onDeleteCardItem?.(data.item.id)}
+              onPress={() =>
+                context?.actions.onDeleteCardItem?.(data.item.itemId)
+              }
             >
               <Icon name="trash" size={18} color={"#F31559"} />
             </TrashContainer>

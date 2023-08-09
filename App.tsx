@@ -29,16 +29,18 @@ export default function App() {
 
   const items = useMemo(() => {
     const items = categories.filter(category => {
-      return category.id === selectedCategory;
+      return category.categoryId === selectedCategory;
     });
     return items[0]?.items;
   }, [selectedCategory]);
 
   const onModifyItem = (action: string, item: Item) => {
     const modifiedItems = cartItems;
-    const isExists = cartItems?.find(cartItem => cartItem.id === item.id);
+    const isExists = cartItems?.find(
+      cartItem => cartItem.itemId === item.itemId
+    );
     const index = cartItems?.findIndex(cartItem => {
-      return cartItem.id === item.id;
+      return cartItem.itemId === item.itemId;
     });
     switch (action) {
       case "+":
@@ -60,7 +62,7 @@ export default function App() {
         if (isExists) {
           if (modifiedItems![index!].count === 1) {
             const filteredItems = modifiedItems?.filter(cartItem => {
-              return cartItem.id !== item.id;
+              return cartItem.itemId !== item.itemId;
             });
             setCartItems(filteredItems);
           } else {
@@ -78,7 +80,7 @@ export default function App() {
 
   const onDeleteCardItem = (id: number) => {
     const filteredCartItems = cartItems?.filter(item => {
-      return item.id !== id;
+      return item.itemId !== id;
     });
     setCartItems(filteredCartItems);
   };

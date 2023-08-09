@@ -1,11 +1,13 @@
 import React, { useContext, useMemo } from "react";
 import { styled } from "styled-components/native";
-import { Layout, Text } from "@ui-kitten/components";
+import { Layout, Spinner, Text } from "@ui-kitten/components";
 import DashedDivider from "../DashedDivider";
 import { pesoFormat } from "../../hooks/usePesoFormat";
 import PaymentMethod from "./PaymentMethod";
 import { PAYMENT_METHOD } from "../../enum/enums";
 import { MenuContext } from "../../context/menu.context";
+import { useMutation } from "@apollo/client";
+import { PLACE_ORDER } from "../../query/order/usePlaceOrder";
 
 type TotalCardProps = {
   paymentMethod: number;
@@ -17,6 +19,12 @@ const TotalCard = ({
   onSelectPaymentMethod
 }: TotalCardProps) => {
   const context = useContext(MenuContext);
+
+  const [createOrder, { loading, error }] = useMutation(PLACE_ORDER, {
+    onCompleted: data => {
+      console.log(data);
+    }
+  });
 
   const total = useMemo(() => {
     let totalCounter = 0;
@@ -34,6 +42,14 @@ const TotalCard = ({
     const totalAndTax = total * 0.1;
     return pesoFormat.format(total + totalAndTax);
   }, [total]);
+
+  const onPlaceOrder = async () => {
+    await createOrder({
+      variables: {
+        orders: context?.cartItems
+      }
+    });
+  };
 
   return (
     <Container>
@@ -72,8 +88,16 @@ const TotalCard = ({
           />
         </MethodPickerView>
       </PaymentMethodView>
-      <PlaceOrderButton activeOpacity={0.8}>
-        <TextStyled style={{ color: "white" }}>Place Order</TextStyled>
+      <PlaceOrderButton
+        activeOpacity={0.8}
+        onPress={onPlaceOrder}
+        disabled={!context?.cartItems?.length}
+      >
+        {loading ? (
+          <Spinner />
+        ) : (
+          <TextStyled style={{ color: "white" }}>Place Order</TextStyled>
+        )}
       </PlaceOrderButton>
     </Container>
   );
@@ -126,13 +150,14 @@ const MethodPickerView = styled.View`
   margin-top: 8px;
 `;
 
-const PlaceOrderButton = styled.TouchableOpacity`
+const PlaceOrderButton = styled.TouchableOpacity<{ disabled: boolean }>`
   justify-content: center;
   align-items: center;
   background-color: #a7727d;
   margin-top: 30px;
   border-radius: 5px;
   padding: 8px;
+  opacity: ${p => (p.disabled ? 0.5 : 1)};
 `;
 
 export default TotalCard;

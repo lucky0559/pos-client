@@ -3,12 +3,12 @@ import styled from "styled-components/native";
 import InputField from "../../components/Input";
 import Button from "../../components/Button";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../../hooks/user/login";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../App";
 import TextError from "../../components/TextError";
 import { Layout } from "@ui-kitten/components";
+import { LOGIN_USER } from "../../query/user/login";
 
 const Login = () => {
   const [username, setUsername] = useState("");

@@ -16,23 +16,23 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
     <DropShadow width={180} borderRadius={15} height={140}>
       <Container
         activeOpacity={0.7}
-        onPress={() => context?.actions.setCategory!(category.id)}
+        onPress={() => context?.actions.setCategory!(category.categoryId)}
         selectedId={context?.selectedCategory}
-        categoryId={category.id}
+        categoryId={category.categoryId}
       >
         <IconLayout></IconLayout>
         <DetailLayout>
           <CategoryItem
             category="label"
             selectedId={context?.selectedCategory}
-            categoryId={category.id}
+            categoryId={category.categoryId}
           >
             {category.name}
           </CategoryItem>
           <CategoryCount
             category="c1"
             selectedId={context?.selectedCategory}
-            categoryId={category.id}
+            categoryId={category.categoryId}
           >
             {category.items.length} items
           </CategoryCount>

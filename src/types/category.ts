@@ -1,7 +1,7 @@
 import { Item } from "./item";
 
 export type Category = {
-  id: number;
+  categoryId: number;
   name: string;
   items: Item[];
 };

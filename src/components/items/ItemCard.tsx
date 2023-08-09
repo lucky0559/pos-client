@@ -15,7 +15,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const context = useContext(MenuContext);
 
   const cartItem = context?.cartItems?.find(
-    itemCart => itemCart.id === item.id
+    itemCart => itemCart.itemId === item.itemId
   );
 
   return (
