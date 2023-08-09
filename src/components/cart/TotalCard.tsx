@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext, useMemo } from "react";
 import { styled } from "styled-components/native";
 import { Layout, Text } from "@ui-kitten/components";
 import DashedDivider from "../DashedDivider";
 import { pesoFormat } from "../../hooks/usePesoFormat";
 import PaymentMethod from "./PaymentMethod";
 import { PAYMENT_METHOD } from "../../enum/enums";
+import { MenuContext } from "../../context/menu.context";
 
 type TotalCardProps = {
   paymentMethod: number;
@@ -15,22 +16,39 @@ const TotalCard = ({
   paymentMethod,
   onSelectPaymentMethod
 }: TotalCardProps) => {
+  const context = useContext(MenuContext);
+
+  const total = useMemo(() => {
+    let totalCounter = 0;
+    for (let i = 0; context?.cartItems?.length! > i; i++) {
+      if (context?.cartItems?.[i]) {
+        totalCounter =
+          context.cartItems[i].count! * context.cartItems[i].price +
+          totalCounter;
+      }
+    }
+    return totalCounter;
+  }, [context?.cartItems]);
+
+  const totalWithTax = useMemo(() => {
+    const totalAndTax = total * 0.1;
+    return pesoFormat.format(total + totalAndTax);
+  }, [total]);
+
   return (
     <Container>
       <ViewSubtotal>
         <TextStyled>Subtotal</TextStyled>
-        <TextStyled>{pesoFormat.format(1225 + 2160)}</TextStyled>
+        <TextStyled>{pesoFormat.format(total)}</TextStyled>
       </ViewSubtotal>
       <ViewTax>
         <TextStyled>Tax 10%</TextStyled>
-        <TextStyled>{pesoFormat.format(3385 * 0.1)}</TextStyled>
+        <TextStyled>{pesoFormat.format(total * 0.1)}</TextStyled>
       </ViewTax>
       <DashedDivider />
       <ViewTotal>
         <TextStyled category="h6">Total</TextStyled>
-        <TextStyled category="h6">
-          {pesoFormat.format(3385 + 338.5 * 0.1)}
-        </TextStyled>
+        <TextStyled category="h6">{totalWithTax}</TextStyled>
       </ViewTotal>
       <PaymentMethodView>
         <TextStyled>Payment Method</TextStyled>
